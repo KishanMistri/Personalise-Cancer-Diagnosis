@@ -11,4 +11,3 @@ mlxtend==0.21.0
 plotly==5.10.0
 gdown==4.6.0
 psutil
-unzip
