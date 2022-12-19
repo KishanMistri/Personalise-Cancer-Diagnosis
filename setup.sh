@@ -1,5 +1,7 @@
 #!/bin/bash
 
+sudo apt install unzip --yes
+
 echo "Installing dependencies"
 pip3 install -r requirements.txt
 
