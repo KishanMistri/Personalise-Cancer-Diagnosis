@@ -1,6 +1,7 @@
 #!/bin/bash
 
-sudo apt install unzip --yes
+echo "installing unzip...!"
+sudo apt-get install zip unzip -y
 
 echo "Installing dependencies"
 pip3 install -r requirements.txt
@@ -25,20 +26,6 @@ MAXUPLOADSIZE=500
 MAXMSGSIZE=500
 STARTPOINT='Home.py'
 
-# export TRAIN_DATA_DIR
-# export TEST_DATA_DIR
-
-get_remaining_days () {
-    PYCMD=$(cat <<EOF
-import gdown
-id = \"1C_Z0vQmtJ_X7WEJ956ZDbuO0vNw_CjpP\"
-gdown.download(id=id, quiet=False)
-EOF)
-
-    python3 -c "$PYCMD"
-}
-
-
 if [ -d "$DATA_DIR" ]; then
     echo "$DATA_DIR directory exists."
 else
@@ -54,6 +41,7 @@ else
         python3 data_download.py
         unzip zip_data.zip 
         unzip $DATA_FILE -d $DATA_DIR
+        echo $(ls -al $DATA_DIR)
         rm -rf $DATA_FILE zip_data.zip
     fi
 fi
@@ -61,6 +49,7 @@ fi
 if [ ! -d $TRAIN_DATA_DIR ]; then
     echo "Setting up train data dir"
     mkdir $TRAIN_DATA_DIR
+    echo "Unziping train data...!"
     unzip "$DATA_DIR/training_text.zip" -d $TRAIN_DATA_DIR
     unzip "$DATA_DIR/training_variants.zip" -d $TRAIN_DATA_DIR
     rm -rf "$DATA_DIR/training_text.zip" "$DATA_DIR/training_variants.zip"
@@ -69,6 +58,7 @@ fi
 if [ ! -d $TEST_DATA_DIR ]; then
     echo "Setting up test data dir"
     mkdir $TEST_DATA_DIR
+    echo "Unziping test data...!"
     unzip "$DATA_DIR/test_text.zip" -d $TEST_DATA_DIR
     unzip "$DATA_DIR/test_variants.zip" -d $TEST_DATA_DIR
     rm -rf "$DATA_DIR/test_text.zip" "$DATA_DIR/test_variants.zip"
