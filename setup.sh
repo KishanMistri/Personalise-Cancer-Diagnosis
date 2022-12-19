@@ -63,12 +63,14 @@ fi
 
 if [ ! -d $PROCESSED_DATA_DIR ]; then
     mkdir $PROCESSED_DATA_DIR
+    echo "Unzipping Processed data"
     unzip preprocessed_zip.zip -d $PROCESSED_DATA_DIR
     rm -rf preprocessed_zip.zip
 fi
 
 if [ ! -d $MODELS_DIR ]; then
     mkdir $MODELS_DIR
+    echo "Unzipping Models & Metadata"
     unzip models_zip.zip -d $MODELS_DIR
     rm -rf models_zip.zip
 fi
