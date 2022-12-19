@@ -1,6 +1,9 @@
 import streamlit as st
 import pandas as pd
 import numpy as np
+import os
+# Just for streamlit cloud deployment. Otherwise the entrypoint will be setup.sh only
+os.system("bash ./setup.sh")
 
 st.title('🩺 Personalized Cancer Diagnosis ')
 
