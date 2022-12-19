@@ -699,6 +699,9 @@ with modelling_prep_expander:
     cv_x_onehotCoding = hstack((cv_gene_var_onehotCoding, cv_text_feature_onehotCoding)).tocsr()
     cv_y = np.array(list(cv_df['Class']))
     
+    st.caption("Appending/Stacking each feature to create final feature set.")
+    st.caption("Final features = [ GENE FEATURE COLUMNS | VARIATION FEATURE COLUMNS | TEXT FEATURE COLUMNS ]")
+    
     st.write("One hot encoding features:")
     st.caption("Train data = {0}".format(train_x_onehotCoding.shape))
     st.caption("Cross Validation data = {0}".format(cv_x_onehotCoding.shape))
@@ -750,6 +753,9 @@ with modelling_prep_expander:
         for df_name in export_path:
             path, df = export_path[df_name]
             st.caption("Name: {0} -> Shape: {1}".format(df_name,df.shape))
-            joblib.dump(df, path)
+            if os.path.exists(path):
+                continue
+            else:
+                joblib.dump(df, path)
     st.write("Saving files..!")
     save_processed_data(export_preprocessed)

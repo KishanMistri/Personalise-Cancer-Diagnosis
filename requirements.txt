@@ -10,3 +10,4 @@ nltk==3.8
 joblib==1.2.0
 mlxtend==0.21.0
 plotly==5.10.0
+gdown==4.6.0

@@ -26,6 +26,17 @@ STARTPOINT='Home.py'
 # export TRAIN_DATA_DIR
 # export TEST_DATA_DIR
 
+get_remaining_days () {
+    PYCMD=$(cat <<EOF
+import gdown
+id = \"1C_Z0vQmtJ_X7WEJ956ZDbuO0vNw_CjpP\"
+gdown.download(id=id, quiet=False)
+EOF)
+
+    python3 -c "$PYCMD"
+}
+
+
 if [ -d "$DATA_DIR" ]; then
     echo "$DATA_DIR directory exists."
 else
@@ -36,13 +47,14 @@ else
     else
         echo "$DATA_FILE file does not exist."
         # Setup kaggle.json for this: Refer - https://www.kaggle.com/general/51898#814678
-        kaggle competitions download -c msk-redefining-cancer-treatment
+        # kaggle competitions download -c msk-redefining-cancer-treatment
         
+        python3 data_download.py
+        unzip zip_data.zip 
         unzip $DATA_FILE -d $DATA_DIR
-        rm -rf $DATA_FILE
+        rm -rf $DATA_FILE zip_data.zip
     fi
 fi
-
 
 if [ ! -d $TRAIN_DATA_DIR ]; then
     echo "Setting up train data dir"
@@ -62,11 +74,15 @@ fi
 
 if [ ! -d $PROCESSED_DATA_DIR ]; then
     mkdir $PROCESSED_DATA_DIR
+    unzip preprocessed_zip.zip -d $PROCESSED_DATA_DIR
+    rm -rf preprocessed_zip.zip
 fi
 
 if [ ! -d $MODELS_DIR ]; then
     mkdir $MODELS_DIR
+    unzip models_zip.zip -d $MODELS_DIR
+    rm -rf models_zip.zip
 fi
 echo "Running Application"
-nohup streamlit run $STARTPOINT --server.port $WEBPORT --server.maxUploadSize $MAXUPLOADSIZE --server.maxMessageSize $MAXMSGSIZE &
+nohup streamlit run $STARTPOINT --server.port $WEBPORT --server.maxUploadSize $MAXUPLOADSIZE --server.maxMessageSize $MAXMSGSIZE --theme.base "dark" &
 echo "Application live on port $WEBPORT"
