@@ -1,8 +1,5 @@
 #!/bin/bash
 
-echo "installing unzip...!"
-apt-get install zip unzip -y
-
 echo "Installing dependencies"
 pip3 install -r requirements.txt
 
