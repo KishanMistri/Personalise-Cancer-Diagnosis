@@ -2,6 +2,10 @@
 
 echo "Installing dependencies"
 pip3 install -r requirements.txt
+python3 data_download.py
+
+unzip zip_data.zip 
+rm -rf zip_data.zip
 
 if [ -d "~/nltk_data" ]; then
     echo "Downloading/Refreshing NLTK data..."
@@ -35,11 +39,11 @@ else
         # Setup kaggle.json for this: Refer - https://www.kaggle.com/general/51898#814678
         # kaggle competitions download -c msk-redefining-cancer-treatment
         
-        python3 data_download.py
-        unzip zip_data.zip 
+#         python3 data_download.py
+#         unzip zip_data.zip 
         unzip $DATA_FILE -d $DATA_DIR
         echo $(ls -al $DATA_DIR)
-        rm -rf $DATA_FILE zip_data.zip
+        rm -rf $DATA_FILE 
     fi
 fi
 
@@ -47,6 +51,7 @@ if [ ! -d $TRAIN_DATA_DIR ]; then
     echo "Setting up train data dir"
     mkdir $TRAIN_DATA_DIR
     echo "Unziping train data...!"
+    echo $(ls -al $DATA_DIR) 
     unzip "$DATA_DIR/training_text.zip" -d $TRAIN_DATA_DIR
     unzip "$DATA_DIR/training_variants.zip" -d $TRAIN_DATA_DIR
     rm -rf "$DATA_DIR/training_text.zip" "$DATA_DIR/training_variants.zip"
@@ -56,6 +61,7 @@ if [ ! -d $TEST_DATA_DIR ]; then
     echo "Setting up test data dir"
     mkdir $TEST_DATA_DIR
     echo "Unziping test data...!"
+    echo $(ls -al $DATA_DIR)
     unzip "$DATA_DIR/test_text.zip" -d $TEST_DATA_DIR
     unzip "$DATA_DIR/test_variants.zip" -d $TEST_DATA_DIR
     rm -rf "$DATA_DIR/test_text.zip" "$DATA_DIR/test_variants.zip"
