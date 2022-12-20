@@ -4,7 +4,7 @@ echo "Installing dependencies"
 pip3 install -r requirements.txt
 python3 data_download.py
 
-unzip zip_data.zip 
+unzip -uo zip_data.zip 
 rm -rf zip_data.zip
 
 if [ -d "~/nltk_data" ]; then
@@ -34,15 +34,15 @@ else
     mkdir $DATA_DIR
     if [ -f "$DATA_FILE" ]; then
         echo "$DATA_FILE file exists."
-        unzip $DATA_FILE -d $DATA_DIR
+        unzip -uo $DATA_FILE -d $DATA_DIR
     else
         echo "$DATA_FILE file does not exist."
         # Setup kaggle.json for this: Refer - https://www.kaggle.com/general/51898#814678
         # kaggle competitions download -c msk-redefining-cancer-treatment
         
         python3 data_download.py
-        unzip zip_data.zip 
-        unzip $DATA_FILE -d $DATA_DIR
+        unzip -uo zip_data.zip 
+        unzip -uo $DATA_FILE -d $DATA_DIR
     fi
     echo $(ls -al $DATA_DIR)
     rm -rf $DATA_FILE 
@@ -53,8 +53,8 @@ if [ ! -d $TRAIN_DATA_DIR ]; then
     mkdir $TRAIN_DATA_DIR
     echo "Unziping train data...!"
     echo $(ls -al $DATA_DIR) 
-    unzip "$DATA_DIR/training_text.zip" -d $TRAIN_DATA_DIR
-    unzip "$DATA_DIR/training_variants.zip" -d $TRAIN_DATA_DIR
+    unzip -uo "$DATA_DIR/training_text.zip" -d $TRAIN_DATA_DIR
+    unzip -uo "$DATA_DIR/training_variants.zip" -d $TRAIN_DATA_DIR
     rm -rf "$DATA_DIR/training_text.zip" "$DATA_DIR/training_variants.zip"
 fi
 
@@ -63,22 +63,22 @@ if [ ! -d $TEST_DATA_DIR ]; then
     mkdir $TEST_DATA_DIR
     echo "Unziping test data...!"
     echo $(ls -al $DATA_DIR)
-    unzip "$DATA_DIR/test_text.zip" -d $TEST_DATA_DIR
-    unzip "$DATA_DIR/test_variants.zip" -d $TEST_DATA_DIR
+    unzip -uo "$DATA_DIR/test_text.zip" -d $TEST_DATA_DIR
+    unzip -uo "$DATA_DIR/test_variants.zip" -d $TEST_DATA_DIR
     rm -rf "$DATA_DIR/test_text.zip" "$DATA_DIR/test_variants.zip"
 fi
 
 if [ ! -d $PROCESSED_DATA_DIR ]; then
     mkdir $PROCESSED_DATA_DIR
     echo "Unzipping Processed data"
-    unzip preprocessed_zip.zip -d $PROCESSED_DATA_DIR
+    unzip -uo preprocessed_zip.zip -d $PROCESSED_DATA_DIR
     rm -rf preprocessed_zip.zip
 fi
 
 if [ ! -d $MODELS_DIR ]; then
     mkdir $MODELS_DIR
     echo "Unzipping Models & Metadata"
-    unzip models_zip.zip -d $MODELS_DIR
+    unzip -uo models_zip.zip -d $MODELS_DIR
     rm -rf models_zip.zip
 fi
 echo "Running Application"
