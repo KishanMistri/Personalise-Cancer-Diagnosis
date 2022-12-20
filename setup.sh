@@ -44,7 +44,6 @@ else
         unzip -uo zip_data.zip 
         unzip -uo $DATA_FILE -d $DATA_DIR
     fi
-    ls -al $DATA_DIR
     rm -rf $DATA_FILE 
 fi
 
