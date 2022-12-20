@@ -44,7 +44,7 @@ else
         unzip -uo zip_data.zip 
         unzip -uo $DATA_FILE -d $DATA_DIR
     fi
-    echo $(ls -al $DATA_DIR)
+    ls -al $DATA_DIR
     rm -rf $DATA_FILE 
 fi
 
@@ -52,7 +52,7 @@ if [ ! -d $TRAIN_DATA_DIR ]; then
     echo "Setting up train data dir"
     mkdir $TRAIN_DATA_DIR
     echo "Unziping train data...!"
-    echo $(ls -al $DATA_DIR) 
+    ls -al $DATA_DIR
     unzip -uo "$DATA_DIR/training_text.zip" -d $TRAIN_DATA_DIR
     unzip -uo "$DATA_DIR/training_variants.zip" -d $TRAIN_DATA_DIR
     rm -rf "$DATA_DIR/training_text.zip" "$DATA_DIR/training_variants.zip"
@@ -62,7 +62,7 @@ if [ ! -d $TEST_DATA_DIR ]; then
     echo "Setting up test data dir"
     mkdir $TEST_DATA_DIR
     echo "Unziping test data...!"
-    echo $(ls -al $DATA_DIR)
+    ls -al $DATA_DIR
     unzip -uo "$DATA_DIR/test_text.zip" -d $TEST_DATA_DIR
     unzip -uo "$DATA_DIR/test_variants.zip" -d $TEST_DATA_DIR
     rm -rf "$DATA_DIR/test_text.zip" "$DATA_DIR/test_variants.zip"
@@ -81,6 +81,10 @@ if [ ! -d $MODELS_DIR ]; then
     unzip -uo models_zip.zip -d $MODELS_DIR
     rm -rf models_zip.zip
 fi
+
+echo "Printing directory structure..."
+tree .
+
 echo "Running Application"
 nohup streamlit run $STARTPOINT --server.port $WEBPORT --server.maxUploadSize $MAXUPLOADSIZE --server.maxMessageSize $MAXMSGSIZE --theme.base "dark" &
 echo "Application live on port $WEBPORT"
