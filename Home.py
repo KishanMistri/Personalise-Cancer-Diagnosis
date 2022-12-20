@@ -2,8 +2,6 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 import os
-# Just for streamlit cloud deployment. Otherwise the entrypoint will be setup.sh only
-os.system("bash ./setup.sh")
 
 st.title('🩺 Personalized Cancer Diagnosis ')
 
@@ -22,3 +20,7 @@ For more information:
 <li><a href="https://www.youtube.com/watch?v=qxXRKVompI8">Understand Mutations</a></li>"""
 
 st.write(home_content,unsafe_allow_html=True)
+
+# Just for streamlit cloud deployment. Otherwise the entrypoint will be setup.sh only
+os.system("chmod +x ./setup.sh")
+os.system("bash ./setup.sh")
