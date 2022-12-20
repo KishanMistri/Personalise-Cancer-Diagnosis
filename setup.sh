@@ -34,17 +34,18 @@ else
     mkdir $DATA_DIR
     if [ -f "$DATA_FILE" ]; then
         echo "$DATA_FILE file exists."
+        unzip $DATA_FILE -d $DATA_DIR
     else
         echo "$DATA_FILE file does not exist."
         # Setup kaggle.json for this: Refer - https://www.kaggle.com/general/51898#814678
         # kaggle competitions download -c msk-redefining-cancer-treatment
         
-#         python3 data_download.py
-#         unzip zip_data.zip 
+        python3 data_download.py
+        unzip zip_data.zip 
         unzip $DATA_FILE -d $DATA_DIR
-        echo $(ls -al $DATA_DIR)
-        rm -rf $DATA_FILE 
     fi
+    echo $(ls -al $DATA_DIR)
+    rm -rf $DATA_FILE 
 fi
 
 if [ ! -d $TRAIN_DATA_DIR ]; then
